@@ -12,7 +12,7 @@ import { ceil } from "react-native-reanimated";
 
 
 const { width, height } = Dimensions.get('window');
-class Products extends Component {
+class Items extends Component {
 
     constructor() {
         super();
@@ -31,7 +31,7 @@ class Products extends Component {
     }
 
     componentDidMount() {
-        var url = 'http://localhost:63437/API/Products';
+        var url = 'http://localhost:63437/API/Items';
         var headers = new Headers({
             Authorization: "Basic " + btoa("test:test")
         }
@@ -49,7 +49,7 @@ class Products extends Component {
     }
 
     getProducts = () => {
-        var url = 'http://localhost:63437/API/Products';
+        var url = 'http://localhost:63437/API/Items';
         var headers = new Headers({
             Authorization: "Basic " + btoa("test:test")
         }
@@ -69,7 +69,7 @@ class Products extends Component {
     deleteProduct = () => {
         console.log("delete")
         //description causes errors for some reason
-        var url = "http://localhost:63437/API/Products/" + this.state.id;
+        var url = "http://localhost:63437/API/Items/" + this.state.id;
 
         var headers = new Headers({
             Authorization: "Basic " + btoa("test:test")
@@ -94,7 +94,7 @@ class Products extends Component {
     addProduct = () => {
         console.log("add")
         //description causes errors for some reason
-        var url = "http://localhost:63437/API/Products/" + this.state.name + "/" + this.state.price + "/" + this.state.stock + "/" + this.state.description + "/" + this.state.brand + "/" + this.state.category + "/" + encodeURIComponent(this.state.thumbnail);
+        var url = "http://localhost:63437/API/Items/" + this.state.name + "/" + this.state.price + "/" + this.state.stock + "/" + this.state.description + "/" + this.state.brand + "/" + this.state.category + "/" + encodeURIComponent(this.state.thumbnail);
 
 
         var headers = new Headers({
@@ -125,7 +125,7 @@ class Products extends Component {
     updateProduct = () => {
         console.log("update")
         //description causes errors for some reason
-        var url = "http://localhost:63437/API/Products/" + this.state.id;//+ "/" + this.state.name + "/" + this.state.price + "/" + this.state.stock + "/" + this.state.description + "/" + this.state.brand + "/" + this.state.category + "/" + this.state.thumbnail+"/";
+        var url = "http://localhost:63437/API/Items/" + this.state.id;//+ "/" + this.state.name + "/" + this.state.price + "/" + this.state.stock + "/" + this.state.description + "/" + this.state.brand + "/" + this.state.category + "/" + this.state.thumbnail+"/";
 
         var headers = new Headers({
             Authorization: "Basic " + btoa("test:test")
@@ -196,7 +196,7 @@ class Products extends Component {
                     <View style={{
                         flex: 1, backgroundColor: 'white', justifyContent: 'center', flexDirection: 'row', justifyContent: 'space-between', padding: 7, alignItems: 'center'
                     }}>
-                        <Text style={{ color: 'black', fontSize: 20, fontWeight: 'bold', flex: 1 }}>Products List</Text>
+                        <Text style={{ color: 'black', fontSize: 20, fontWeight: 'bold', flex: 1 }}>Items List</Text>
                         <TouchableOpacity style={{}} onPress={() => {
                             this.getProducts();
                             this.setState({
@@ -229,9 +229,9 @@ class Products extends Component {
                     <View style={{
                         flex: 1, backgroundColor: 'white', justifyContent: 'center', flexDirection: 'row', justifyContent: 'space-between', padding: 7, alignItems: 'center', marginBottom: 10
                     }}>
-                        <Text style={{ color: 'black', fontSize: 20, fontWeight: 'bold', flex: 1 }}>Add Product</Text>
+                        <Text style={{ color: 'black', fontSize: 20, fontWeight: 'bold', flex: 1 }}>Add Item</Text>
                         <View style={{ justifyContent: 'center', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
-                            <Text style={{ color: 'black', fontSize: 16, fontWeight: 'bold', flex: 1 }}>Back to Products</Text>
+                            <Text style={{ color: 'black', fontSize: 16, fontWeight: 'bold', flex: 1 }}>Back to Items</Text>
                             <TouchableOpacity style={{}} onPress={() => {
                                 this.getProducts();
 
@@ -246,13 +246,13 @@ class Products extends Component {
                         </View>
                     </View>
                     <ScrollView contentContainerStyle={{ alignItems: 'center' }} style={{ flex: 15 }}>
-                        <Input Text={" Name"} placeholder={"Product Name"} value={this.state.name} onChangeText={text => this.setState({ name: text })} ></Input>
-                        <Input Text={" Price"} placeholder={"Product Price"} value={this.state.price} onChangeText={text => this.setState({ price: text })}></Input>
-                        <Input Text={" Stock"} placeholder={"Product Stock"} value={this.state.stock} onChangeText={text => this.setState({ stock: text })}></Input>
-                        <Input Text={" Description"} placeholder={"Product Description"} value={this.state.description} onChangeText={text => this.setState({ description: text })}></Input>
-                        <Input Text={" Brand"} placeholder={"Product Brand"} value={this.state.brand} onChangeText={text => this.setState({ brand: text })}></Input>
-                        {/* <Input Text={" Category"} placeholder={"Product Category"} value={this.state.category} onChangeText={text => this.setState({ category: text })}></Input> */}
-                        <Input Text={" Thumbnail Url"} placeholder={"Product Thumbnail"} value={this.state.thumbnail} onChangeText={text => this.setState({ thumbnail: text })}></Input>
+                        <Input Text={" Name"} placeholder={"Item Name"} value={this.state.name} onChangeText={text => this.setState({ name: text })} ></Input>
+                        <Input Text={" Price"} placeholder={"Item Price"} value={this.state.price} onChangeText={text => this.setState({ price: text })}></Input>
+                        <Input Text={" Stock"} placeholder={"Item Stock"} value={this.state.stock} onChangeText={text => this.setState({ stock: text })}></Input>
+                        <Input Text={" Description"} placeholder={"Item Description"} value={this.state.description} onChangeText={text => this.setState({ description: text })}></Input>
+                        <Input Text={" Brand"} placeholder={"Item Brand"} value={this.state.brand} onChangeText={text => this.setState({ brand: text })}></Input>
+                        {/* <Input Text={" Category"} placeholder={"Item Category"} value={this.state.category} onChangeText={text => this.setState({ category: text })}></Input> */}
+                        <Input Text={" Thumbnail Url"} placeholder={"Item Thumbnail"} value={this.state.thumbnail} onChangeText={text => this.setState({ thumbnail: text })}></Input>
                         <Text style={{ color: 'white', marginLeft: wp('-75%') }}>Category</Text>
                         <Picker style={{ backgroundColor: 'white', width: wp('80%'), fontSize: 20, height: 40, borderRadius: 5, margin: 10, padding: 5, }} selectedValue={this.state.category} onValueChange={(value) => this.setState({ category: value })}>
                             <Picker.Item label="Select Category" value="Categories"></Picker.Item>
@@ -264,7 +264,7 @@ class Products extends Component {
 
                         <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
                             <TouchableOpacity style={{ backgroundColor: '#e74c3c', height: 50, borderRadius: 5, width: wp("30%"), alignItems: 'center', justifyContent: 'center', margin: 15 }} onPress={() => this.addProduct()}>
-                                <Text style={{ color: 'white', alignItems: 'center', justifyContent: 'center', fontSize: 16 }} >Add Product</Text>
+                                <Text style={{ color: 'white', alignItems: 'center', justifyContent: 'center', fontSize: 16 }} >Add Item</Text>
                             </TouchableOpacity>
                         </View>
                     </ScrollView>
@@ -282,9 +282,9 @@ class Products extends Component {
                     <View style={{
                         flex: 1, backgroundColor: 'white', justifyContent: 'center', flexDirection: 'row', justifyContent: 'space-between', padding: 7, alignItems: 'center', marginBottom: 10
                     }}>
-                        <Text style={{ color: 'black', fontSize: 20, fontWeight: 'bold', flex: 1 }}>Product Detail</Text>
+                        <Text style={{ color: 'black', fontSize: 20, fontWeight: 'bold', flex: 1 }}>Item Detail</Text>
                         <View style={{ justifyContent: 'center', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
-                            <Text style={{ color: 'black', fontSize: 16, fontWeight: 'bold', flex: 1 }}>Back to Products</Text>
+                            <Text style={{ color: 'black', fontSize: 16, fontWeight: 'bold', flex: 1 }}>Back to Items</Text>
                             <TouchableOpacity style={{}} onPress={() => {
                                 this.getProducts();
                                 this.setState({
@@ -298,13 +298,13 @@ class Products extends Component {
 
                     </View>
                     <ScrollView contentContainerStyle={{ alignItems: 'center' }} style={{ flex: 15 }}>
-                        <Input Text={" Id"} placeholder={"Product Id"} value={this.state.id} editable={false}></Input>
-                        <Input Text={" Name"} placeholder={"Product Name"} value={this.state.name} onChangeText={text => this.setState({ name: text })} ></Input>
-                        <Input Text={" Price"} placeholder={"Product Price"} value={this.state.price} onChangeText={text => this.setState({ price: text })}></Input>
-                        <Input Text={" Stock"} placeholder={"Product Stock"} value={this.state.stock} onChangeText={text => this.setState({ stock: text })}></Input>
-                        <Input Text={" Description"} placeholder={"Product Description"} value={this.state.description} onChangeText={text => this.setState({ description: text })}></Input>
-                        <Input Text={" Brand"} placeholder={"Product Brand"} value={this.state.brand} onChangeText={text => this.setState({ brand: text })}></Input>
-                        {/* <Input Text={" Category"} placeholder={"Product Category"} value={this.state.category} onChangeText={text => this.setState({ category: text })}></Input> */}
+                        <Input Text={" Id"} placeholder={"Item Id"} value={this.state.id} editable={false}></Input>
+                        <Input Text={" Name"} placeholder={"Item Name"} value={this.state.name} onChangeText={text => this.setState({ name: text })} ></Input>
+                        <Input Text={" Price"} placeholder={"Item Price"} value={this.state.price} onChangeText={text => this.setState({ price: text })}></Input>
+                        <Input Text={" Stock"} placeholder={"Item Stock"} value={this.state.stock} onChangeText={text => this.setState({ stock: text })}></Input>
+                        <Input Text={" Description"} placeholder={"Item Description"} value={this.state.description} onChangeText={text => this.setState({ description: text })}></Input>
+                        <Input Text={" Brand"} placeholder={"Item Brand"} value={this.state.brand} onChangeText={text => this.setState({ brand: text })}></Input>
+                        {/* <Input Text={" Category"} placeholder={"Item Category"} value={this.state.category} onChangeText={text => this.setState({ category: text })}></Input> */}
                         <Text style={{ color: 'white', marginLeft: wp('-75%') }}>Category</Text>
                         <Picker style={{ backgroundColor: 'white', width: wp('80%'), fontSize: 20, height: 40, borderRadius: 5, margin: 10, padding: 5, }} selectedValue={this.state.category} onValueChange={(value) => this.setState({ category: value })}>
                             <Picker.Item label="Select Category" value="Categories"></Picker.Item>
@@ -312,16 +312,16 @@ class Products extends Component {
                             <Picker.Item label="Iphones" value="Iphones"></Picker.Item>
                             <Picker.Item label="Oppo" value="Oppo"></Picker.Item>
                         </Picker>
-                        <Input Text={" Thumbnail Url"} placeholder={"Product Thumbnail"} value={this.state.thumbnail} onChangeText={text => this.setState({ thumbnail: text })}></Input>
+                        <Input Text={" Thumbnail Url"} placeholder={"Item Thumbnail"} value={this.state.thumbnail} onChangeText={text => this.setState({ thumbnail: text })}></Input>
 
                         {/* <Image style={{width:200, height:200}} source={{uri:this.state.thumbnail}}/> */}
 
                         <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
                             <TouchableOpacity style={{ backgroundColor: '#e74c3c', height: 50, borderRadius: 5, width: wp("30%"), alignItems: 'center', justifyContent: 'center', margin: 15 }} onPress={() => this.updateProduct()}>
-                                <Text style={{ color: 'white', alignItems: 'center', justifyContent: 'center', fontSize: 16 }} >Update Product</Text>
+                                <Text style={{ color: 'white', alignItems: 'center', justifyContent: 'center', fontSize: 16 }} >Update Item</Text>
                             </TouchableOpacity>
                             <TouchableOpacity style={{ backgroundColor: '#e74c3c', height: 50, borderRadius: 5, width: wp("30%"), alignItems: 'center', justifyContent: 'center', margin: 15 }} onPress={() => this.deleteProduct()}>
-                                <Text style={{ color: 'white', alignItems: 'center', justifyContent: 'center', fontSize: 16 }} >Delete Product</Text>
+                                <Text style={{ color: 'white', alignItems: 'center', justifyContent: 'center', fontSize: 16 }} >Delete Item</Text>
                             </TouchableOpacity>
                         </View>
                     </ScrollView>
@@ -337,7 +337,7 @@ class Products extends Component {
 }
 
 
-export default Products;
+export default Items;
 
 const styles = StyleSheet.create({
 

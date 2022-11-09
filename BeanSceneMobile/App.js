@@ -6,7 +6,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
 import Login from "./src/screens/Login";
-import Products from "./src/screens/Products";
+import Items from "./src/screens/Items";
 import Search from './src/screens/Search';
 import ManagerDashboard from './src/screens/ManagerDashboard';
 import StaffDashboard from './src/screens/StaffDashboard';
@@ -36,7 +36,7 @@ export default function App() {
 function ManagerDashboardTab() {
   return (
     <BottomTabStack.Navigator screenOptions={screenOptionStyle}>
-      <BottomTabStack.Screen name="Products" component={Products}  />
+      <BottomTabStack.Screen name="Items" component={Items}  />
       <BottomTabStack.Screen name="Staff" component={ManagerDashboard} />
       <BottomTabStack.Screen name="Reports" component={Reports} />
       <BottomTabStack.Screen name="Search" component={Search} />
@@ -47,7 +47,7 @@ function ManagerDashboardTab() {
 function StaffDashboardTab() {
   return (
     <BottomTabStack.Navigator screenOptions={screenOptionStyle}>
-      <BottomTabStack.Screen name="Products" component={Products}  />
+      <BottomTabStack.Screen name="Items" component={Items}  />
       <BottomTabStack.Screen name="Staff" component={StaffDashboard} />
       <BottomTabStack.Screen name="Reports" component={Reports} />
       <BottomTabStack.Screen name="Search" component={Search} />

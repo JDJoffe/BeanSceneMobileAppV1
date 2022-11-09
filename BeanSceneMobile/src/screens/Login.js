@@ -99,8 +99,8 @@ class Login extends Component {
         return (
             <View style={styles.container}>
                 <View style={styles.logoContainer}>
-                    <Image style={styles.logo} source={require("../images/GelosLogo.png")}></Image>
-                    <Text style={styles.logosubheader}>Gelos ISS</Text>
+                    <Image style={styles.logo} source={require("../images/BeanSceneLogo.png")}></Image>
+                    <Text style={styles.logosubheader}>BeanScene</Text>
                     <Text style={styles.logotitle}>Inventory Software System</Text>
                 </View>
                 <View style={styles.formContainer}>
