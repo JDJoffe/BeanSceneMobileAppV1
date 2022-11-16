@@ -21,12 +21,14 @@ class Items extends Component {
             selectedTab: 'get',
             id: '',
             name: '',
-            price: '',
-            stock: '',
             description: '',
+            dietary: '',
+            price: '',
+            category: '',
             thumbnail: '',
+            availability: '',
             message: '',
-            category: ''
+
         }
     }
 
@@ -48,7 +50,7 @@ class Items extends Component {
             })
     }
 
-    getProducts = () => {
+    getItems = () => {
         var url = 'http://localhost:63437/API/Items';
         var headers = new Headers({
             Authorization: "Basic " + btoa("test:test")
@@ -66,7 +68,7 @@ class Items extends Component {
             })
     }
 
-    deleteProduct = () => {
+    deleteItem = () => {
         console.log("delete")
         //description causes errors for some reason
         var url = "http://localhost:63437/API/Items/" + this.state.id;
@@ -91,22 +93,35 @@ class Items extends Component {
             })
     }
 
-    addProduct = () => {
+    addItem = () => {
         console.log("add")
-        //description causes errors for some reason
-        var url = "http://localhost:63437/API/Items/" + this.state.name + "/" + this.state.price + "/" + this.state.stock + "/" + this.state.description + "/" + this.state.brand + "/" + this.state.category + "/" + encodeURIComponent(this.state.thumbnail);
+       // description causes errors for some reason
+
+        // var item = {
+        //     id: this.state.id,
+        //     name: this.state.name,
+        //     description: this.state.description,
+        //     dietary: this.state.dietary,
+        //     price: this.state.price,
+        //     category: this.state.category,
+        //     thumbnail: this.state.thumbnail,
+        //     availability: this.state.availability
+        // }
+        var url = "http://localhost:63437/API/Items/" + this.state.name + "/" + this.state.description + "/" + this.state.dietary +"/" + this.state.price  + "/" + this.state.category + "/" + encodeURIComponent(this.state.thumbnail) + "/" + this.state.availability;
 
 
         var headers = new Headers({
             Authorization: "Basic " + btoa("test:test")
         }
         );
-        // headers.append('Access-Control-Allow-Origin', 'http://localhost:19006');
-        // headers.append('Access-Control-Allow-Headers', 'Content-Type');
-        // headers.append('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
-        // headers.append('Access-Control-Allow-Credentials', 'false');
+        headers.append('Access-Control-Allow-Origin', 'http://localhost:19006');
+        headers.append('Access-Control-Allow-Headers', 'Content-Type');
+        headers.append('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
+        headers.append('Access-Control-Allow-Credentials', 'false');
 
-        var options = { method: "POST", headers: headers };
+        var options = { method: "POST", headers: headers
+        //, body:JSON.stringify(item) 
+    };
 
 
 
@@ -122,9 +137,20 @@ class Items extends Component {
             })
     }
 
-    updateProduct = () => {
+    updateItem = () => {
         console.log("update")
         //description causes errors for some reason
+
+        var item = {
+            id: this.state.id,
+            name: this.state.name,
+            description: this.state.description,
+            dietary: this.state.dietary,
+            price: this.state.price,
+            category: this.state.category,
+            thumbnail: this.state.thumbnail,
+            availability: this.state.availability
+        }
         var url = "http://localhost:63437/API/Items/" + this.state.id;//+ "/" + this.state.name + "/" + this.state.price + "/" + this.state.stock + "/" + this.state.description + "/" + this.state.brand + "/" + this.state.category + "/" + this.state.thumbnail+"/";
 
         var headers = new Headers({
@@ -138,7 +164,7 @@ class Items extends Component {
 
         // all other stuff in body
         var options = {
-            method: "PUT", headers: headers//, body: {
+            method: "PUT", headers: headers,body:JSON.stringify(item)//, body: {
             //     name: this.state.name,
             //     price: this.state.price,
             //     stock: this.state.stock,
@@ -174,11 +200,11 @@ class Items extends Component {
                         id: item.id,
                         name: item.name,
                         description: item.description,
-                        stock: item.stock,
+                        dietary: item.dietary,
                         price: item.price,
-                        brand: item.brand,
                         category: item.category,
                         thumbnail: item.thumbnail,
+                        availability: item.availability,
                         message: ''
                     })}>
                         <View style={{ margin: 5, flexDirection: "row", justifyContent: 'space-between', padding: 5, borderBottomWidth: 1, borderBottomColor: 'white', alignItems: 'center' }}>
@@ -198,7 +224,7 @@ class Items extends Component {
                     }}>
                         <Text style={{ color: 'black', fontSize: 20, fontWeight: 'bold', flex: 1 }}>Items List</Text>
                         <TouchableOpacity style={{}} onPress={() => {
-                            this.getProducts();
+                            this.getItems();
                             this.setState({
                                 selectedTab: 'add',
                                 // id: '',
@@ -221,7 +247,7 @@ class Items extends Component {
                 </View>
             )
         }
-        //ADD PRODUCT
+        //ADD Item
         else if (this.state.selectedTab == "add") {
             return (
                 <View style={{ backgroundColor: "grey", flex: 1 }}>
@@ -233,7 +259,7 @@ class Items extends Component {
                         <View style={{ justifyContent: 'center', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
                             <Text style={{ color: 'black', fontSize: 16, fontWeight: 'bold', flex: 1 }}>Back to Items</Text>
                             <TouchableOpacity style={{}} onPress={() => {
-                                this.getProducts();
+                                this.getItems();
 
                                 this.setState({
                                     selectedTab: 'get'
@@ -247,23 +273,29 @@ class Items extends Component {
                     </View>
                     <ScrollView contentContainerStyle={{ alignItems: 'center' }} style={{ flex: 15 }}>
                         <Input Text={" Name"} placeholder={"Item Name"} value={this.state.name} onChangeText={text => this.setState({ name: text })} ></Input>
-                        <Input Text={" Price"} placeholder={"Item Price"} value={this.state.price} onChangeText={text => this.setState({ price: text })}></Input>
-                        <Input Text={" Stock"} placeholder={"Item Stock"} value={this.state.stock} onChangeText={text => this.setState({ stock: text })}></Input>
                         <Input Text={" Description"} placeholder={"Item Description"} value={this.state.description} onChangeText={text => this.setState({ description: text })}></Input>
-                        <Input Text={" Brand"} placeholder={"Item Brand"} value={this.state.brand} onChangeText={text => this.setState({ brand: text })}></Input>
-                        {/* <Input Text={" Category"} placeholder={"Item Category"} value={this.state.category} onChangeText={text => this.setState({ category: text })}></Input> */}
-                        <Input Text={" Thumbnail Url"} placeholder={"Item Thumbnail"} value={this.state.thumbnail} onChangeText={text => this.setState({ thumbnail: text })}></Input>
+                        <Input Text={" Dietary"} placeholder={"Item Dietary"} value={this.state.dietary} onChangeText={text => this.setState({ dietary: text })}></Input>
+                        <Input Text={" Price"} placeholder={"Item Price"} value={this.state.price} onChangeText={text => this.setState({ price: text })}></Input>
                         <Text style={{ color: 'white', marginLeft: wp('-75%') }}>Category</Text>
                         <Picker style={{ backgroundColor: 'white', width: wp('80%'), fontSize: 20, height: 40, borderRadius: 5, margin: 10, padding: 5, }} selectedValue={this.state.category} onValueChange={(value) => this.setState({ category: value })}>
                             <Picker.Item label="Select Category" value="Categories"></Picker.Item>
-                            <Picker.Item label="Samsung" value="Samsung"></Picker.Item>
-                            <Picker.Item label="Iphones" value="Iphones"></Picker.Item>
-                            <Picker.Item label="Oppo" value="Oppo"></Picker.Item>
+                            <Picker.Item label="Main" value="main"></Picker.Item>
+                            <Picker.Item label="entrée" value="entrée"></Picker.Item>
+                            <Picker.Item label="Dessert" value="dessert"></Picker.Item>
+                            <Picker.Item label="Drink" value="drink"></Picker.Item>
+                            <Picker.Item label="Side" value="side"></Picker.Item>
+                            <Picker.Item label="Special" value="special"></Picker.Item>
+                        </Picker>
+                        {/* <Input Text={" Category"} placeholder={"Item Category"} value={this.state.category} onChangeText={text => this.setState({ category: text })}></Input> */}
+                        <Input Text={" Thumbnail Url"} placeholder={"Item Thumbnail"} value={this.state.thumbnail} onChangeText={text => this.setState({ thumbnail: text })}></Input>
+                        <Text style={{ color: 'white', marginLeft: wp('-75%') }}>Availability</Text>
+                        <Picker style={{ backgroundColor: 'white', width: wp('80%'), fontSize: 20, height: 40, borderRadius: 5, margin: 10, padding: 5, }} selectedValue={this.state.availability} onValueChange={(value) => this.setState({ availability: value })}>
+                            <Picker.Item label="Available" value="available"></Picker.Item>
+                            <Picker.Item label="Unavailable" value="unavailable"></Picker.Item>
                         </Picker>
 
-
                         <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
-                            <TouchableOpacity style={{ backgroundColor: '#e74c3c', height: 50, borderRadius: 5, width: wp("30%"), alignItems: 'center', justifyContent: 'center', margin: 15 }} onPress={() => this.addProduct()}>
+                            <TouchableOpacity style={{ backgroundColor: '#e74c3c', height: 50, borderRadius: 5, width: wp("30%"), alignItems: 'center', justifyContent: 'center', margin: 15 }} onPress={() => this.addItem()}>
                                 <Text style={{ color: 'white', alignItems: 'center', justifyContent: 'center', fontSize: 16 }} >Add Item</Text>
                             </TouchableOpacity>
                         </View>
@@ -274,7 +306,7 @@ class Items extends Component {
                 </View>
             )
         }
-        //PRODUCT DETAILS
+        //Item DETAILS
         else if (this.state.selectedTab == "detail") {
             return (
                 <View style={{ backgroundColor: "grey", flex: 1 }}>
@@ -286,7 +318,7 @@ class Items extends Component {
                         <View style={{ justifyContent: 'center', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
                             <Text style={{ color: 'black', fontSize: 16, fontWeight: 'bold', flex: 1 }}>Back to Items</Text>
                             <TouchableOpacity style={{}} onPress={() => {
-                                this.getProducts();
+                                this.getItems();
                                 this.setState({
                                     selectedTab: 'get'
                                 })
@@ -300,27 +332,32 @@ class Items extends Component {
                     <ScrollView contentContainerStyle={{ alignItems: 'center' }} style={{ flex: 15 }}>
                         <Input Text={" Id"} placeholder={"Item Id"} value={this.state.id} editable={false}></Input>
                         <Input Text={" Name"} placeholder={"Item Name"} value={this.state.name} onChangeText={text => this.setState({ name: text })} ></Input>
-                        <Input Text={" Price"} placeholder={"Item Price"} value={this.state.price} onChangeText={text => this.setState({ price: text })}></Input>
-                        <Input Text={" Stock"} placeholder={"Item Stock"} value={this.state.stock} onChangeText={text => this.setState({ stock: text })}></Input>
                         <Input Text={" Description"} placeholder={"Item Description"} value={this.state.description} onChangeText={text => this.setState({ description: text })}></Input>
-                        <Input Text={" Brand"} placeholder={"Item Brand"} value={this.state.brand} onChangeText={text => this.setState({ brand: text })}></Input>
-                        {/* <Input Text={" Category"} placeholder={"Item Category"} value={this.state.category} onChangeText={text => this.setState({ category: text })}></Input> */}
+                        <Input Text={" Dietary"} placeholder={"Item Dietary"} value={this.state.dietary} onChangeText={text => this.setState({ dietary: text })}></Input>
+                        <Input Text={" Price"} placeholder={"Item Price"} value={this.state.price} onChangeText={text => this.setState({ price: text })}></Input>
                         <Text style={{ color: 'white', marginLeft: wp('-75%') }}>Category</Text>
                         <Picker style={{ backgroundColor: 'white', width: wp('80%'), fontSize: 20, height: 40, borderRadius: 5, margin: 10, padding: 5, }} selectedValue={this.state.category} onValueChange={(value) => this.setState({ category: value })}>
                             <Picker.Item label="Select Category" value="Categories"></Picker.Item>
-                            <Picker.Item label="Samsung" value="Samsung"></Picker.Item>
-                            <Picker.Item label="Iphones" value="Iphones"></Picker.Item>
-                            <Picker.Item label="Oppo" value="Oppo"></Picker.Item>
+                            <Picker.Item label="Main" value="main"></Picker.Item>
+                            <Picker.Item label="entrée" value="entrée"></Picker.Item>
+                            <Picker.Item label="Dessert" value="dessert"></Picker.Item>
+                            <Picker.Item label="Drink" value="drink"></Picker.Item>
+                            <Picker.Item label="Side" value="side"></Picker.Item>
+                            <Picker.Item label="Special" value="special"></Picker.Item>
                         </Picker>
+                        {/* <Input Text={" Category"} placeholder={"Item Category"} value={this.state.category} onChangeText={text => this.setState({ category: text })}></Input> */}
                         <Input Text={" Thumbnail Url"} placeholder={"Item Thumbnail"} value={this.state.thumbnail} onChangeText={text => this.setState({ thumbnail: text })}></Input>
-
-                        {/* <Image style={{width:200, height:200}} source={{uri:this.state.thumbnail}}/> */}
+                        <Text style={{ color: 'white', marginLeft: wp('-75%') }}>Availability</Text>
+                        <Picker style={{ backgroundColor: 'white', width: wp('80%'), fontSize: 20, height: 40, borderRadius: 5, margin: 10, padding: 5, }} selectedValue={this.state.availability} onValueChange={(value) => this.setState({ availability: value })}>
+                            <Picker.Item label="Available" value="available"></Picker.Item>
+                            <Picker.Item label="Unavailable" value="unavailable"></Picker.Item>
+                        </Picker>
 
                         <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
-                            <TouchableOpacity style={{ backgroundColor: '#e74c3c', height: 50, borderRadius: 5, width: wp("30%"), alignItems: 'center', justifyContent: 'center', margin: 15 }} onPress={() => this.updateProduct()}>
+                            <TouchableOpacity style={{ backgroundColor: '#e74c3c', height: 50, borderRadius: 5, width: wp("30%"), alignItems: 'center', justifyContent: 'center', margin: 15 }} onPress={() => this.updateItem()}>
                                 <Text style={{ color: 'white', alignItems: 'center', justifyContent: 'center', fontSize: 16 }} >Update Item</Text>
                             </TouchableOpacity>
-                            <TouchableOpacity style={{ backgroundColor: '#e74c3c', height: 50, borderRadius: 5, width: wp("30%"), alignItems: 'center', justifyContent: 'center', margin: 15 }} onPress={() => this.deleteProduct()}>
+                            <TouchableOpacity style={{ backgroundColor: '#e74c3c', height: 50, borderRadius: 5, width: wp("30%"), alignItems: 'center', justifyContent: 'center', margin: 15 }} onPress={() => this.deleteItem()}>
                                 <Text style={{ color: 'white', alignItems: 'center', justifyContent: 'center', fontSize: 16 }} >Delete Item</Text>
                             </TouchableOpacity>
                         </View>
