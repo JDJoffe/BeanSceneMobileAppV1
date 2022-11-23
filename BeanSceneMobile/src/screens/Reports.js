@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import {View,Text} from "react-native";
+import {View,Text, StyleSheet} from "react-native";
 
 import Header from '../layout/Header'
 
@@ -15,3 +15,11 @@ class Reports extends Component{
 }
 
 export default Reports;
+
+const styles = StyleSheet.create({
+    container:{
+        backgroundColor: '#404040',
+        flex:1
+    }
+},
+);

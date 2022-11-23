@@ -181,7 +181,7 @@ class ManagerDashboard extends Component {
                 )
             };
             return (
-                <View style={{ backgroundColor: "grey", flex: 1 }}>
+                <View style={styles.container}>
                     <Header navigation={navigation}></Header>
                     <View style={{
                         flex: 1, backgroundColor: 'white', justifyContent: 'center', flexDirection: 'row', justifyContent: 'space-between', padding: 7, alignItems: 'center'
@@ -193,7 +193,7 @@ class ManagerDashboard extends Component {
                                 selectedTab: 'add'
                             })
                         }}>
-                            <Ionicons style={{ color: '#e74c3c', fontSize: 50 }} name="add-circle-outline"></Ionicons>
+                            <Ionicons style={{ color: '#FF7F50', fontSize: 50 }} name="add-circle-outline"></Ionicons>
                         </TouchableOpacity>
 
                     </View>
@@ -208,7 +208,7 @@ class ManagerDashboard extends Component {
         //Add
         else if (this.state.selectedTab == "add") {
             return (
-                <View style={{ backgroundColor: "grey", flex: 1 }}>
+                <View style={styles.container}>
                     <Header navigation={navigation}></Header>
                     <View style={{
                         flex: 1, backgroundColor: 'white', justifyContent: 'center', flexDirection: 'row', justifyContent: 'space-between', padding: 7, alignItems: 'center', marginBottom: 10
@@ -223,7 +223,7 @@ class ManagerDashboard extends Component {
                                 })
                             }}>
 
-                                <Ionicons style={{ color: '#e74c3c', fontSize: 50 }} name="arrow-back-outline"></Ionicons>
+                                <Ionicons style={{ color: '#FF7F50', fontSize: 50 }} name="arrow-back-outline"></Ionicons>
                             </TouchableOpacity>
                         </View>
                     </View>
@@ -242,7 +242,7 @@ class ManagerDashboard extends Component {
                         </Picker>
                         <Input Text={" Password"} placeholder={" Password"} value={this.state.password} onChangeText={text => this.setState({ password: text })}></Input>
                         <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
-                            <TouchableOpacity style={{ backgroundColor: '#e74c3c', height: 50, borderRadius: 5, width: wp("30%"), alignItems: 'center', justifyContent: 'center', margin: 15 }} onPress={() => this.addStaff()}>
+                            <TouchableOpacity style={{ backgroundColor: '#FF7F50', height: 50, borderRadius: 5, width: wp("30%"), alignItems: 'center', justifyContent: 'center', margin: 15 }} onPress={() => this.addStaff()}>
                                 <Text style={{ color: 'white', alignItems: 'center', justifyContent: 'center', fontSize: 16 }} >Add Staff</Text>
                             </TouchableOpacity>
                         </View>
@@ -256,7 +256,7 @@ class ManagerDashboard extends Component {
         //Details
         else if (this.state.selectedTab == "detail") {
             return (
-                <View style={{ backgroundColor: "grey", flex: 1 }}>
+                <View style={styles.container}>
                     <Header navigation={navigation}></Header>
                     <View style={{
                         flex: 1, backgroundColor: 'white', justifyContent: 'center', flexDirection: 'row', justifyContent: 'space-between', padding: 7, alignItems: 'center', marginBottom: 10
@@ -271,7 +271,7 @@ class ManagerDashboard extends Component {
                                 })
                             }}>
 
-                                <Ionicons style={{ color: '#e74c3c', fontSize: 50 }} name="arrow-back-outline"></Ionicons>
+                                <Ionicons style={{ color: '#FF7F50', fontSize: 50 }} name="arrow-back-outline"></Ionicons>
                             </TouchableOpacity>
                         </View>
 
@@ -293,7 +293,7 @@ class ManagerDashboard extends Component {
                         <Input Text={" Password"} placeholder={" Password"} value={this.state.password} onChangeText={text => this.setState({ password: text })}></Input>
 
                         <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
-                            <TouchableOpacity style={{ backgroundColor: '#e74c3c', height: 50, borderRadius: 5, width: wp("30%"), alignItems: 'center', justifyContent: 'center', margin: 15 }} onPress={() => this.updateStaff()}>
+                            <TouchableOpacity style={{ backgroundColor: '#4EEA36', height: 50, borderRadius: 5, width: wp("30%"), alignItems: 'center', justifyContent: 'center', margin: 15 }} onPress={() => this.updateStaff()}>
                                 <Text style={{ color: 'white', alignItems: 'center', justifyContent: 'center', fontSize: 16 }} >Update Staff</Text>
                             </TouchableOpacity>
                             <TouchableOpacity style={{ backgroundColor: '#e74c3c', height: 50, borderRadius: 5, width: wp("30%"), alignItems: 'center', justifyContent: 'center', margin: 15 }} onPress={() => this.deleteStaff()}>
@@ -313,3 +313,11 @@ class ManagerDashboard extends Component {
 }
 
 export default ManagerDashboard;
+
+const styles = StyleSheet.create({
+    container:{
+        backgroundColor: '#404040',
+        flex:1
+    }
+},
+);

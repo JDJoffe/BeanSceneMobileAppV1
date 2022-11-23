@@ -217,7 +217,7 @@ class Items extends Component {
                 )
             };
             return (
-                <View style={{ backgroundColor: "grey", flex: 1 }}>
+                <View style={styles.container}>
                     <Header navigation={navigation}></Header>
                     <View style={{
                         flex: 1, backgroundColor: 'white', justifyContent: 'center', flexDirection: 'row', justifyContent: 'space-between', padding: 7, alignItems: 'center'
@@ -235,7 +235,7 @@ class Items extends Component {
                                 // thumbnail: ''
                             })
                         }}>
-                            <Ionicons style={{ color: '#e74c3c', fontSize: 50 }} name="add-circle-outline"></Ionicons>
+                            <Ionicons style={{ color: '#FF7F50', fontSize: 50 }} name="add-circle-outline"></Ionicons>
                         </TouchableOpacity>
                     </View>
 
@@ -250,7 +250,7 @@ class Items extends Component {
         //ADD Item
         else if (this.state.selectedTab == "add") {
             return (
-                <View style={{ backgroundColor: "grey", flex: 1 }}>
+                <View style={styles.container}>
                     <Header navigation={navigation}></Header>
                     <View style={{
                         flex: 1, backgroundColor: 'white', justifyContent: 'center', flexDirection: 'row', justifyContent: 'space-between', padding: 7, alignItems: 'center', marginBottom: 10
@@ -267,7 +267,7 @@ class Items extends Component {
                                 })
                             }}>
 
-                                <Ionicons style={{ color: '#e74c3c', fontSize: 50 }} name="arrow-back-outline"></Ionicons>
+                                <Ionicons style={{ color: '#FF7F50', fontSize: 50 }} name="arrow-back-outline"></Ionicons>
                             </TouchableOpacity>
                         </View>
                     </View>
@@ -295,7 +295,7 @@ class Items extends Component {
                         </Picker>
 
                         <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
-                            <TouchableOpacity style={{ backgroundColor: '#e74c3c', height: 50, borderRadius: 5, width: wp("30%"), alignItems: 'center', justifyContent: 'center', margin: 15 }} onPress={() => this.addItem()}>
+                            <TouchableOpacity style={{ backgroundColor: '#FF7F50', height: 50, borderRadius: 5, width: wp("30%"), alignItems: 'center', justifyContent: 'center', margin: 15 }} onPress={() => this.addItem()}>
                                 <Text style={{ color: 'white', alignItems: 'center', justifyContent: 'center', fontSize: 16 }} >Add Item</Text>
                             </TouchableOpacity>
                         </View>
@@ -309,7 +309,7 @@ class Items extends Component {
         //Item DETAILS
         else if (this.state.selectedTab == "detail") {
             return (
-                <View style={{ backgroundColor: "grey", flex: 1 }}>
+                <View style={styles.container}>
                     <Header navigation={navigation}></Header>
                     <View style={{
                         flex: 1, backgroundColor: 'white', justifyContent: 'center', flexDirection: 'row', justifyContent: 'space-between', padding: 7, alignItems: 'center', marginBottom: 10
@@ -324,7 +324,7 @@ class Items extends Component {
                                 })
                             }}>
 
-                                <Ionicons style={{ color: '#e74c3c', fontSize: 50 }} name="arrow-back-outline"></Ionicons>
+                                <Ionicons style={{ color: '#FF7F50', fontSize: 50 }} name="arrow-back-outline"></Ionicons>
                             </TouchableOpacity>
                         </View>
 
@@ -354,7 +354,7 @@ class Items extends Component {
                         </Picker>
 
                         <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
-                            <TouchableOpacity style={{ backgroundColor: '#e74c3c', height: 50, borderRadius: 5, width: wp("30%"), alignItems: 'center', justifyContent: 'center', margin: 15 }} onPress={() => this.updateItem()}>
+                            <TouchableOpacity style={{ backgroundColor: '#4EEA36', height: 50, borderRadius: 5, width: wp("30%"), alignItems: 'center', justifyContent: 'center', margin: 15 }} onPress={() => this.updateItem()}>
                                 <Text style={{ color: 'white', alignItems: 'center', justifyContent: 'center', fontSize: 16 }} >Update Item</Text>
                             </TouchableOpacity>
                             <TouchableOpacity style={{ backgroundColor: '#e74c3c', height: 50, borderRadius: 5, width: wp("30%"), alignItems: 'center', justifyContent: 'center', margin: 15 }} onPress={() => this.deleteItem()}>
@@ -377,6 +377,9 @@ class Items extends Component {
 export default Items;
 
 const styles = StyleSheet.create({
-
+    container:{
+        backgroundColor: '#404040',
+        flex:1
+    }
 },
 );

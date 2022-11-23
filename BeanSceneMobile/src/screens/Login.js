@@ -99,7 +99,7 @@ class Login extends Component {
         return (
             <View style={styles.container}>
                 <View style={styles.logoContainer}>
-                    <Image style={styles.logo} source={require("../images/BeanSceneLogo.png")}></Image>
+                    <Image style={styles.logo} source={require("../images/BeanSceneLogo2.png")}></Image>
                     <Text style={styles.logosubheader}>BeanScene</Text>
                     <Text style={styles.logotitle}>Inventory Software System</Text>
                 </View>
@@ -128,7 +128,7 @@ export default Login;
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: 'grey',
+        backgroundColor: '#404040',
         alignItems: 'center',
         justifyContent: 'center',
         //width:width,
@@ -156,7 +156,7 @@ const styles = StyleSheet.create({
         marginBottom: 10,
     },
     logotitle: {
-        color: '#e74c3c',
+        color: '#FF7F50',
         fontSize: 16,
         fontWeight: 'bold',
     },
@@ -173,7 +173,7 @@ const styles = StyleSheet.create({
     buttoncontainer: {
         width: wp('80%'),
         borderRadius: 5,
-        backgroundColor: '#e74c3c',
+        backgroundColor: '#4EEA36',
         height: '10%',
         alignItems: 'center',
         justifyContent: 'center'

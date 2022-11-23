@@ -14,6 +14,7 @@ import Reports from './src/screens/Reports'
 
 import global from './src/utils/global';
 import { State } from 'react-native-gesture-handler';
+import Orders from './src/screens/Orders';
 
 const HomeStack = createStackNavigator();
 
@@ -23,9 +24,9 @@ export default function App() {
   return (
     <NavigationContainer>
       <HomeStack.Navigator>
-        <HomeStack.Screen name="Login" options={{headerShown:false}} component={Login} />
-        <HomeStack.Screen name="ManagerDashboard" options={{headerShown:false}} component={ManagerDashboardTab} />
-        <HomeStack.Screen name="StaffDashboard" options={{headerShown:false}} component={StaffDashboardTab} />
+        <HomeStack.Screen name="Login" options={{ headerShown: false }} component={Login} />
+        <HomeStack.Screen name="ManagerDashboard" options={{ headerShown: false }} component={ManagerDashboardTab} />
+        <HomeStack.Screen name="StaffDashboard" options={{ headerShown: false }} component={StaffDashboardTab} />
 
       </HomeStack.Navigator>
     </NavigationContainer>
@@ -36,8 +37,9 @@ export default function App() {
 function ManagerDashboardTab() {
   return (
     <BottomTabStack.Navigator screenOptions={screenOptionStyle}>
-      <BottomTabStack.Screen name="Items" component={Items}  />
+      <BottomTabStack.Screen name="Items" component={Items} />
       <BottomTabStack.Screen name="Staff" component={ManagerDashboard} />
+      <BottomTabStack.Screen name="Orders" component={Orders} />
       <BottomTabStack.Screen name="Reports" component={Reports} />
       <BottomTabStack.Screen name="Search" component={Search} />
     </BottomTabStack.Navigator>
@@ -47,9 +49,8 @@ function ManagerDashboardTab() {
 function StaffDashboardTab() {
   return (
     <BottomTabStack.Navigator screenOptions={screenOptionStyle}>
-      <BottomTabStack.Screen name="Items" component={Items}  />
-      <BottomTabStack.Screen name="Staff" component={StaffDashboard} />
-      <BottomTabStack.Screen name="Reports" component={Reports} />
+      <BottomTabStack.Screen name="Items" component={Items} />
+      <BottomTabStack.Screen name="Orders" component={Orders} />
       <BottomTabStack.Screen name="Search" component={Search} />
     </BottomTabStack.Navigator>
   )
@@ -57,19 +58,19 @@ function StaffDashboardTab() {
 const screenOptionStyle = {
 
   headerStyle: {
-    backgroundColor: '#e74c3c',
+    backgroundColor: '#FF7F50',
   },
-  headerTitleStyle:{
-    color:'white',
-    fontWeight:'bold',
-    fontSize:20
+  headerTitleStyle: {
+    color: 'white',
+    fontWeight: 'bold',
+    fontSize: 20
   },
-  headerRight:()=>(
-    <Text style={{color:'white',paddingRight:15,fontSize:20,fontWeight:'bold'}}>Gelos ISS</Text>
+  headerRight: () => (
+    <Text style={{ color: 'white', paddingRight: 15, fontSize: 20, fontWeight: 'bold', fontFamily: 'book-antiqua' }}>BeanScene</Text>
   ),
-  tabBarStyle:[{backgroundColor:'#e74c3c',fontSize:18,color:'white',fontweight:'bold'}],
-  tabBarLabelStyle:[{fontSize:16}],
-  tabBarActiveTintColor:'white',
-  tabBarInactiveTintColor:'black'
+  tabBarStyle: [{ backgroundColor: '#606060', fontSize: 18, color: 'white', fontweight: 'bold' }],
+  tabBarLabelStyle: [{ fontSize: 16 }],
+  tabBarActiveTintColor: 'white',
+  tabBarInactiveTintColor: '#101010'
 
 }

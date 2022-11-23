@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { View, Text, TextInput, ScrollView, FlatList } from "react-native";
+import { View, Text, TextInput, ScrollView, FlatList, StyleSheet } from "react-native";
 import { Value } from "react-native-reanimated";
 import { widthPercentageToDP as wp } from "react-native-responsive-screen";
 
@@ -62,7 +62,7 @@ class Search extends Component {
         }
 
         return (
-            <View style={{ flex: 1, backgroundColor: 'grey' }}>
+            <View style={styles.container}>
                 <Header navigation={navigation}></Header>
                 <View style={{ alignItems: 'center', flex: 1, paddingBottom: 15 }}>
                     <TextInput placeholder={'Search Product'} onChangeText={(text) => this.search(text)} style={{ backgroundColor: 'white', width: wp('80%'), fontSize: 20, height: 40, borderRadius: 5, margin: 10, padding: 15 }}></TextInput>
@@ -88,3 +88,11 @@ class Search extends Component {
 }
 
 export default Search;
+
+const styles = StyleSheet.create({
+    container:{
+        backgroundColor: '#404040',
+        flex:1
+    }
+},
+);
