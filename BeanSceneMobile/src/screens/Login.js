@@ -36,6 +36,7 @@ class Login extends Component {
     }
 
     login = () => {
+        console.log("login button press");
         if (this.state.username.length == 0) {
             this.setState({
                 error: "Please enter username"
@@ -52,8 +53,8 @@ class Login extends Component {
             })
             console.log("login")
             //description causes errors for some reason
+            //var url = "http://localhost:63437/API/Staff/" + this.state.username + '/' + this.state.password;
             var url = "http://localhost:63437/API/Staff/" + this.state.username + '/' + this.state.password;
-
             var headers = new Headers({
                 Authorization: "Basic " + btoa("test:test")
             }
@@ -61,7 +62,7 @@ class Login extends Component {
             var options = { headers: headers };
 
 
-
+            console.log("fetching");
             fetch(url, options)
                 .then(response => response.json())
                 .then((json) => {
@@ -108,7 +109,7 @@ class Login extends Component {
                     <TextInput style={styles.input} placeholder={'Username or Email'} value={this.state.username} onChangeText={this.onUsernameChange}></TextInput>
                     <TextInput style={styles.input} secureTextEntry={true} placeholder={'Password'} value={this.state.password} onChangeText={this.onPasswordChange}></TextInput>
 
-                    <TouchableOpacity style={styles.buttoncontainer} onPress={() => this.props.navigation.navigate("ManagerDashboard")} onPress={this.login}>
+                    <TouchableOpacity style={styles.buttoncontainer} onPress={ /*this.props.navigation.navigate("ManagerDashboard")}*/ this.login}>
                         <Text style={styles.buttontext}>LOGIN</Text>
                     </TouchableOpacity>
 

@@ -26,7 +26,7 @@ class Search extends Component {
     // }
 
     search = (text) => {
-        var url = 'http://localhost:63437/API/Products/Search/' + text;
+        var url = 'http://localhost:63437/API/Items/Search/' + text;
         var headers = new Headers({
             Authorization: "Basic " + btoa("test:test")
         }

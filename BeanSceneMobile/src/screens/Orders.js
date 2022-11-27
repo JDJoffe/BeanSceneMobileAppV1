@@ -103,7 +103,7 @@ class Orders extends Component {
             Authorization: "Basic " + btoa("test:test")
         }
         );
-        // headers.append('Access-Control-Allow-Origin', 'http://localhost:19006');
+        // headers.append('Access-Control-Allow-Origin', 'http://localhost:63437');
         // headers.append('Access-Control-Allow-Headers', 'Content-Type');
         // headers.append('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
         // headers.append('Access-Control-Allow-Credentials', 'false');
@@ -144,7 +144,7 @@ class Orders extends Component {
             Authorization: "Basic " + btoa("test:test")
         }
         );
-        // headers.append('Access-Control-Allow-Origin', 'http://localhost:19006');
+        // headers.append('Access-Control-Allow-Origin', 'http://localhost:63437');
         // headers.append('Access-Control-Allow-Headers', 'Content-Type');
         // headers.append('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
         // headers.append('Access-Control-Allow-Credentials', 'false');

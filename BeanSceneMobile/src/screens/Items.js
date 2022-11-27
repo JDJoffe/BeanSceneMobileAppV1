@@ -107,6 +107,7 @@ class Items extends Component {
         //     thumbnail: this.state.thumbnail,
         //     availability: this.state.availability
         // }
+        //63437
         var url = "http://localhost:63437/API/Items/" + this.state.name + "/" + this.state.description + "/" + this.state.dietary +"/" + this.state.price  + "/" + this.state.category + "/" + encodeURIComponent(this.state.thumbnail) + "/" + this.state.availability;
 
 
@@ -114,7 +115,7 @@ class Items extends Component {
             Authorization: "Basic " + btoa("test:test")
         }
         );
-        headers.append('Access-Control-Allow-Origin', 'http://localhost:19006');
+        headers.append('Access-Control-Allow-Origin', 'http://localhost:63437');
         headers.append('Access-Control-Allow-Headers', 'Content-Type');
         headers.append('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
         headers.append('Access-Control-Allow-Credentials', 'false');
@@ -157,7 +158,7 @@ class Items extends Component {
             Authorization: "Basic " + btoa("test:test")
         }
         );
-        // headers.append('Access-Control-Allow-Origin', 'http://localhost:19006');
+        // headers.append('Access-Control-Allow-Origin', 'http://localhost:63437');
         // headers.append('Access-Control-Allow-Headers', 'Content-Type');
         // headers.append('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
         // headers.append('Access-Control-Allow-Credentials', 'false');
