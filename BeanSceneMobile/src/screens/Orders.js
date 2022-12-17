@@ -184,20 +184,33 @@ class Orders extends Component {
                     <TouchableOpacity onPress={() => this.setState({
                         selectedTab: 'detail',
                         id: item.id,
-                        name: item.name,
-                        description: item.description,
-                        dietary: item.dietary,
-                        price: item.price,
-                        category: item.category,
-                        thumbnail: item.thumbnail,
-                        availability: item.availability,
+                        Table: item.Table,
+                        Items: item.Items,
+                        Dietary: item.Dietary,
+                        Requests: item.Requests,
+                        Date: item.Date,
+                        Time: item.Time,
+                        Status: item.Status,
+                        Notes: item.Notes,
                         message: ''
                     })}>
-                        <View style={{ margin: 5, flexDirection: "row", justifyContent: 'space-between', padding: 5, borderBottomWidth: 1, borderBottomColor: 'white', alignItems: 'center' }}>
-                            <Text style={{ color: 'white' }}>{item.id}</Text>
-                            <Text style={{ color: 'white' }}>{item.name}</Text>
-                            <Text style={{ color: 'white' }}>${item.price}</Text>
-                        </View>
+                      
+                         
+                            <View style={{ flexDirection: "row", margin: 2.5, justifyContent: 'space-between',padding: 2.5, borderBottomWidth: 1, borderBottomColor: 'white', alignItems: 'center' }}>
+                                <Text style={{ color: 'white' }}>{item.id}</Text>
+                                <Text style={{ color: 'white' }}>{item.Table}</Text>
+                                <Text style={{ color: 'white' }}>{item.Date}</Text>
+                                <Text style={{ color: 'white' }}>{item.Time}</Text>
+                            </View>
+                           
+
+                        {/* <View style={{ flexDirection: "row", margin: 5, justifyContent: 'space-between', padding: 5, borderBottomWidth: 1, borderBottomColor: 'white', alignItems: 'center' }}>
+                                <Text style={{ color: 'white' }}>{item.id}</Text>
+                                <Text style={{ color: 'white' }}>{item.Table}</Text>
+                                <Text style={{ color: 'white' }}>{item.Date}</Text>
+                                <Text style={{ color: 'white' }}>{item.Time}</Text>
+                            </View> */}
+
                     </TouchableOpacity>
 
                 )
@@ -223,8 +236,14 @@ class Orders extends Component {
                         }}>
                             <Ionicons style={{ color: '#FF7F50', fontSize: 50 }} name="add-circle-outline"></Ionicons>
                         </TouchableOpacity>
+                       
                     </View>
-
+                    <View style={{ flexDirection: "row", margin: 2.5, justifyContent: 'space-between', borderBottomWidth: 1, borderBottomColor: 'white' ,paddingHorizontal:2.5 }}>
+                                <Text style={{ color: 'white' }}>Id</Text>
+                                <Text style={{ color: 'white' }}>Table</Text>
+                                <Text style={{ color: 'white' }}>Date</Text>
+                                <Text style={{ color: 'white' }}>Time</Text>
+                            </View>
                     <ScrollView style={{ flex: 15 }}>
                         <FlatList data={this.state.data} renderItem={renderData} keyExtractor={(item) => item.id}>
 
@@ -233,7 +252,7 @@ class Orders extends Component {
                 </View>
             )
         }
-        //ADD Item
+        //ADD Order
         else if (this.state.selectedTab == "add") {
             return (
                 <View style={styles.container}>
@@ -292,7 +311,7 @@ class Orders extends Component {
                 </View>
             )
         }
-        //Item DETAILS
+        //Order DETAILS
         else if (this.state.selectedTab == "detail") {
             return (
                 <View style={styles.container}>
@@ -300,9 +319,9 @@ class Orders extends Component {
                     <View style={{
                         flex: 1, backgroundColor: 'white', justifyContent: 'center', flexDirection: 'row', justifyContent: 'space-between', padding: 7, alignItems: 'center', marginBottom: 10
                     }}>
-                        <Text style={{ color: 'black', fontSize: 20, fontWeight: 'bold', flex: 1 }}>Item Detail</Text>
+                        <Text style={{ color: 'black', fontSize: 20, fontWeight: 'bold', flex: 1 }}>Order Detail</Text>
                         <View style={{ justifyContent: 'center', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
-                            <Text style={{ color: 'black', fontSize: 16, fontWeight: 'bold', flex: 1 }}>Back to Items</Text>
+                            <Text style={{ color: 'black', fontSize: 16, fontWeight: 'bold', flex: 1 }}>Back to Orders</Text>
                             <TouchableOpacity style={{}} onPress={() => {
                                 this.getOrders();
                                 this.setState({
@@ -352,7 +371,7 @@ class Orders extends Component {
                         </Picker>
                         <Input Text={" Items"} placeholder={"Items"} value={this.state.Items} onChangeText={text => this.setState({ Items: text })}></Input>
                         <Input Text={" Dietary"} placeholder={"Dietary"} value={this.state.Dietary} onChangeText={text => this.setState({ Dietary: text })}></Input>
-                        <Input Text={" Requests"} placeholder={"requests"} value={this.state.Requests} onChangeText={text => this.setState({ Requests: text })}></Input>                                              
+                        <Input Text={" Requests"} placeholder={"requests"} value={this.state.Requests} onChangeText={text => this.setState({ Requests: text })}></Input>
                         <Input Text={" Date"} placeholder={"Date"} value={this.state.Date} onChangeText={text => this.setState({ Date: text })}></Input>
                         <Text style={{ color: 'white', marginLeft: wp('-75%') }}>Status</Text>
                         <Picker style={{ backgroundColor: 'white', width: wp('80%'), fontSize: 20, height: 40, borderRadius: 5, margin: 10, padding: 5, }} selectedValue={this.state.availability} onValueChange={(value) => this.setState({ availability: value })}>
