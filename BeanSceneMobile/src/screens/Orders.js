@@ -194,15 +194,15 @@ class Orders extends Component {
                         Notes: item.Notes,
                         message: ''
                     })}>
-                      
-                         
-                            <View style={{ flexDirection: "row", margin: 2.5, justifyContent: 'space-between',padding: 2.5, borderBottomWidth: 1, borderBottomColor: 'white', alignItems: 'center' }}>
-                                <Text style={{ color: 'white' }}>{item.id}</Text>
-                                <Text style={{ color: 'white' }}>{item.Table}</Text>
-                                <Text style={{ color: 'white' }}>{item.Date}</Text>
-                                <Text style={{ color: 'white' }}>{item.Time}</Text>
-                            </View>
-                           
+
+
+                        <View style={{ flexDirection: "row", margin: 2.5, justifyContent: 'space-between', padding: 2.5, borderBottomWidth: 1, borderBottomColor: 'white', alignItems: 'center' }}>
+                            <Text style={{ color: 'white' }}>{item.id}</Text>
+                            <Text style={{ color: 'white' }}>{item.Table}</Text>
+                            <Text style={{ color: 'white' }}>{item.Date}</Text>
+                            <Text style={{ color: 'white' }}>{item.Time}</Text>
+                        </View>
+
 
                         {/* <View style={{ flexDirection: "row", margin: 5, justifyContent: 'space-between', padding: 5, borderBottomWidth: 1, borderBottomColor: 'white', alignItems: 'center' }}>
                                 <Text style={{ color: 'white' }}>{item.id}</Text>
@@ -236,14 +236,14 @@ class Orders extends Component {
                         }}>
                             <Ionicons style={{ color: '#FF7F50', fontSize: 50 }} name="add-circle-outline"></Ionicons>
                         </TouchableOpacity>
-                       
+
                     </View>
-                    <View style={{ flexDirection: "row", margin: 2.5, justifyContent: 'space-between', borderBottomWidth: 1, borderBottomColor: 'white' ,paddingHorizontal:2.5 }}>
-                                <Text style={{ color: 'white' }}>Id</Text>
-                                <Text style={{ color: 'white' }}>Table</Text>
-                                <Text style={{ color: 'white' }}>Date</Text>
-                                <Text style={{ color: 'white' }}>Time</Text>
-                            </View>
+                    <View style={{ flexDirection: "row", margin: 2.5, justifyContent: 'space-between', borderBottomWidth: 1, borderBottomColor: 'white', paddingHorizontal: 2.5 }}>
+                        <Text style={{ color: 'white' }}>Id</Text>
+                        <Text style={{ color: 'white' }}>Table</Text>
+                        <Text style={{ color: 'white' }}>Date</Text>
+                        <Text style={{ color: 'white' }}>Time</Text>
+                    </View>
                     <ScrollView style={{ flex: 15 }}>
                         <FlatList data={this.state.data} renderItem={renderData} keyExtractor={(item) => item.id}>
 
