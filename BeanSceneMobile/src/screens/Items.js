@@ -152,7 +152,7 @@ class Items extends Component {
             thumbnail: this.state.thumbnail,
             availability: this.state.availability
         }
-        var url = "http://localhost:63437/API/Items/" + this.state.id;//+ "/" + this.state.name + "/" + this.state.price + "/" + this.state.stock + "/" + this.state.description + "/" + this.state.brand + "/" + this.state.category + "/" + this.state.thumbnail+"/";
+        var url = "http://localhost:63437/API/Items/" + this.state.id + "/" + this.state.name + "/" + this.state.description + "/" + this.state.dietary +"/" + this.state.price  + "/" + this.state.category + "/" + encodeURIComponent(this.state.thumbnail) + "/" + this.state.availability;
 
         var headers = new Headers({
             Authorization: "Basic " + btoa("test:test")
@@ -225,6 +225,7 @@ class Items extends Component {
                     }}>
                         <Text style={{ color: 'black', fontSize: 20, fontWeight: 'bold', flex: 1 }}>Items List</Text>
                         <TouchableOpacity style={{}} onPress={() => {
+                            
                             this.getItems();
                             this.setState({
                                 selectedTab: 'add',
@@ -355,7 +356,7 @@ class Items extends Component {
                         </Picker>
 
                         <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
-                            <TouchableOpacity style={{ backgroundColor: '#4EEA36', height: 50, borderRadius: 5, width: wp("30%"), alignItems: 'center', justifyContent: 'center', margin: 15 }} onPress={() => this.updateItem()}>
+                            <TouchableOpacity style={{ backgroundColor: '#4BCA36', height: 50, borderRadius: 5, width: wp("30%"), alignItems: 'center', justifyContent: 'center', margin: 15 }} onPress={() => this.updateItem()}>
                                 <Text style={{ color: 'white', alignItems: 'center', justifyContent: 'center', fontSize: 16 }} >Update Item</Text>
                             </TouchableOpacity>
                             <TouchableOpacity style={{ backgroundColor: '#e74c3c', height: 50, borderRadius: 5, width: wp("30%"), alignItems: 'center', justifyContent: 'center', margin: 15 }} onPress={() => this.deleteItem()}>

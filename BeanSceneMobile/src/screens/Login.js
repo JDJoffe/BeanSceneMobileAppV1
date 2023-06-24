@@ -174,7 +174,7 @@ const styles = StyleSheet.create({
     buttoncontainer: {
         width: wp('80%'),
         borderRadius: 5,
-        backgroundColor: '#4EEA36',
+        backgroundColor: '#4BCA36',
         height: '10%',
         alignItems: 'center',
         justifyContent: 'center'

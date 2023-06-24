@@ -9,6 +9,7 @@ class Reports extends Component{
             <View>
                  <Header navigation ={navigation}></Header>
                 <Text>Reports Screen</Text>
+                
             </View>
         )
     }

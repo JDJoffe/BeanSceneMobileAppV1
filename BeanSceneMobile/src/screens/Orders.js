@@ -8,9 +8,10 @@ import Header from '../layout/Header';
 import Input from '../layout/Input';
 import { render } from "react-dom";
 import { TextInput } from "react-native-gesture-handler";
-import { ceil } from "react-native-reanimated";
+import { ceil, debug } from "react-native-reanimated";
+import Items from "./Items";
 
-
+var counter = 0;
 const { width, height } = Dimensions.get('window');
 class Orders extends Component {
 
@@ -21,13 +22,15 @@ class Orders extends Component {
             selectedTab: 'get',
             id: '',
             Table: '',
-            Items: '',
-            Dietary: '',
-            Requests: '',
+            Items: [''],
+            Dietary: [''],
+            Requests: [''],
             Date: '',
             Time: '',
             Status: '',
             Notes: '',
+            Cost:'',
+            Item: [],
             Message: '',
         }
     }
@@ -96,7 +99,7 @@ class Orders extends Component {
     addOrder = () => {
         console.log("add")
         //description causes errors for some reason
-        var url = "http://localhost:63437/API/Orders/" + this.state.Table + "/" + this.state.Items + "/" + this.state.Dietary + "/" + this.state.Requests + "/" + this.state.Date + "/" + this.state.Time + "/" + this.state.Status + "/" + this.state.Notes;
+        var url = "http://localhost:63437/API/Orders/" + this.state.Table + "/" + this.state.Items + "/" + this.state.Dietary + "/" + this.state.Requests + "/" + this.state.Date + "/" + this.state.Time + "/" + this.state.Status + "/" + this.state.Notes + "/" + this.state.Cost;
 
 
         var headers = new Headers({
@@ -127,7 +130,7 @@ class Orders extends Component {
     updateOrder = () => {
         console.log("update")
         //description causes errors for some reason
-        var url = "http://localhost:63437/API/Orders/" + this.state.id;//+ "/" + this.state.name + "/" + this.state.price + "/" + this.state.stock + "/" + this.state.description + "/" + this.state.brand + "/" + this.state.category + "/" + this.state.thumbnail+"/";
+        var url = "http://localhost:63437/API/Orders/" + this.state.Table + "/" + this.state.Items + "/" + this.state.Dietary + "/" + this.state.Requests + "/" + this.state.Date + "/" + this.state.Time + "/" + this.state.Status + "/" + this.state.Notes + "/" + this.state.Cost;
 
         var order = {
             id: this.state.id,
@@ -138,7 +141,8 @@ class Orders extends Component {
             Date: this.state.Date,
             Time: this.state.Time,
             Status: this.state.Status,
-            Notes: this.state.Notes
+            Notes: this.state.Notes,
+            Cost: this.state.Cost
         }
         var headers = new Headers({
             Authorization: "Basic " + btoa("test:test")
@@ -177,6 +181,20 @@ class Orders extends Component {
                 })
             })
     }
+    addItem = () => {
+        var item = {
+            id: this.state.id,
+            name: this.state.name,
+            description: this.state.description,
+            dietary: this.state.dietary,
+            price: this.state.price,
+            category: this.state.category,
+            thumbnail: this.state.thumbnail,
+            availability: this.state.availability
+        }
+        {<View></View>}
+    }
+  
     render() {
         if (this.state.selectedTab == "get") {
             const renderData = ({ item }) => {
@@ -192,6 +210,8 @@ class Orders extends Component {
                         Time: item.Time,
                         Status: item.Status,
                         Notes: item.Notes,
+                        Cost: item.Cost,
+                        Item: [],
                         message: ''
                     })}>
 
@@ -221,7 +241,7 @@ class Orders extends Component {
                     <View style={{
                         flex: 1, backgroundColor: 'white', justifyContent: 'center', flexDirection: 'row', justifyContent: 'space-between', padding: 7, alignItems: 'center'
                     }}>
-                        <Text style={{ color: 'black', fontSize: 20, fontWeight: 'bold', flex: 1 }}>Items List</Text>
+                        <Text style={{ color: 'black', fontSize: 20, fontWeight: 'bold', flex: 1 }}>Orders List</Text>
                         <TouchableOpacity style={{}} onPress={() => {
                             this.getOrders();
                             this.setState({
@@ -277,7 +297,10 @@ class Orders extends Component {
                         </View>
                     </View>
                     <ScrollView contentContainerStyle={{ alignItems: 'center' }} style={{ flex: 15 }}>
-                        <Input Text={" Name"} placeholder={"Item Name"} value={this.state.name} onChangeText={text => this.setState({ name: text })} ></Input>
+                        <Input Text={" Table"} placeholder={"Table Number"} value={this.state.Table} onChangeText={text => this.setState({ Table: text })} ></Input>
+                        <TouchableOpacity style={{ backgroundColor: '#FF7F50', height: 50, borderRadius: 5, width: wp("30%"), alignItems: 'center', justifyContent: 'center', margin: 15 }} onPress={() => this.addItem()}>
+                            <Text style={{ color: 'white', alignItems: 'center', justifyContent: 'center', fontSize: 16 }} >Add New Item</Text>
+                        </TouchableOpacity>
                         <Input Text={" Description"} placeholder={"Item Description"} value={this.state.description} onChangeText={text => this.setState({ description: text })}></Input>
                         <Input Text={" Dietary"} placeholder={"Item Dietary"} value={this.state.dietary} onChangeText={text => this.setState({ dietary: text })}></Input>
                         <Input Text={" Price"} placeholder={"Item Price"} value={this.state.price} onChangeText={text => this.setState({ price: text })}></Input>
@@ -300,7 +323,7 @@ class Orders extends Component {
                         </Picker>
 
                         <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
-                            <TouchableOpacity style={{ backgroundColor: '#FF7F50', height: 50, borderRadius: 5, width: wp("30%"), alignItems: 'center', justifyContent: 'center', margin: 15 }} onPress={() => this.addItem()}>
+                            <TouchableOpacity style={{ backgroundColor: '#FF7F50', height: 50, borderRadius: 5, width: wp("30%"), alignItems: 'center', justifyContent: 'center', margin: 15 }} onPress={() => this.addOrder()}>
                                 <Text style={{ color: 'white', alignItems: 'center', justifyContent: 'center', fontSize: 16 }} >Add Order</Text>
                             </TouchableOpacity>
                         </View>
@@ -348,30 +371,59 @@ class Orders extends Component {
                             <Picker.Item label="M8" value="8"></Picker.Item>
                             <Picker.Item label="M9" value="9"></Picker.Item>
                             <Picker.Item label="M10" value="10"></Picker.Item>
-                            <Picker.Item label="O1" value="11"></Picker.Item>
-                            <Picker.Item label="O2" value="12"></Picker.Item>
-                            <Picker.Item label="O3" value="13"></Picker.Item>
-                            <Picker.Item label="O4" value="14"></Picker.Item>
-                            <Picker.Item label="O5" value="15"></Picker.Item>
-                            <Picker.Item label="O6" value="16"></Picker.Item>
-                            <Picker.Item label="O7" value="17"></Picker.Item>
-                            <Picker.Item label="O8" value="18"></Picker.Item>
-                            <Picker.Item label="O9" value="19"></Picker.Item>
-                            <Picker.Item label="O10" value="20"></Picker.Item>
-                            <Picker.Item label="B1" value="21"></Picker.Item>
-                            <Picker.Item label="B2" value="22"></Picker.Item>
-                            <Picker.Item label="B3" value="23"></Picker.Item>
-                            <Picker.Item label="B4" value="24"></Picker.Item>
-                            <Picker.Item label="B5" value="25"></Picker.Item>
-                            <Picker.Item label="B6" value="26"></Picker.Item>
-                            <Picker.Item label="B7" value="27"></Picker.Item>
-                            <Picker.Item label="B8" value="28"></Picker.Item>
-                            <Picker.Item label="B9" value="29"></Picker.Item>
-                            <Picker.Item label="B10" value="30"></Picker.Item>
+                            <Picker.Item label="B1" value="11"></Picker.Item>
+                            <Picker.Item label="B2" value="12"></Picker.Item>
+                            <Picker.Item label="B3" value="13"></Picker.Item>
+                            <Picker.Item label="B4" value="14"></Picker.Item>
+                            <Picker.Item label="B5" value="15"></Picker.Item>
+                            <Picker.Item label="B6" value="16"></Picker.Item>
+                            <Picker.Item label="B7" value="17"></Picker.Item>
+                            <Picker.Item label="B8" value="18"></Picker.Item>
+                            <Picker.Item label="B9" value="19"></Picker.Item>
+                            <Picker.Item label="B10" value="20"></Picker.Item>
+                            <Picker.Item label="O1" value="21"></Picker.Item>
+                            <Picker.Item label="O2" value="22"></Picker.Item>
+                            <Picker.Item label="O3" value="23"></Picker.Item>
+                            <Picker.Item label="O4" value="24"></Picker.Item>
+                            <Picker.Item label="O5" value="25"></Picker.Item>
+                            <Picker.Item label="O6" value="26"></Picker.Item>
+                            <Picker.Item label="O7" value="27"></Picker.Item>
+                            <Picker.Item label="O8" value="28"></Picker.Item>
+                            <Picker.Item label="O9" value="29"></Picker.Item>
+                            <Picker.Item label="O10" value="30"></Picker.Item>
                         </Picker>
-                        <Input Text={" Items"} placeholder={"Items"} value={this.state.Items} onChangeText={text => this.setState({ Items: text })}></Input>
-                        <Input Text={" Dietary"} placeholder={"Dietary"} value={this.state.Dietary} onChangeText={text => this.setState({ Dietary: text })}></Input>
-                        <Input Text={" Requests"} placeholder={"requests"} value={this.state.Requests} onChangeText={text => this.setState({ Requests: text })}></Input>
+                        
+                         
+                        {this.state.Items.map(Item => {
+                            
+                           console.log(Item); 
+                           console.log(Item.indexOf)
+                           counter +=1;
+                           var temp = Object.values(Item)[1];
+                            return(
+                            <Input Key={counter} Text={"Item "+counter } placeholder={Object.values(Item)[1]}  value={temp}onChangeText={text => this.setState({ Item: text })}></Input> );
+                        })}
+                       <Text style={styles.Hide}>{counter = 0}</Text>
+                        { this.state.Dietary.map(Diet => {
+                            
+                            console.log(Diet); 
+                            console.log(Diet.length)
+                            counter +=1;
+                            var temp = Object.values(Diet)[1];
+                             return(
+                             <Input Key={counter} Text={"Dietary "+counter} placeholder={temp }  value={temp +" in "+ Object.values(Diet)[0]}onChangeText={text => this.setState({ Dietary: text })}></Input> );
+                         })}
+                         <Text style={styles.Hide}>{counter = 0}</Text>
+                         { this.state.Requests.map(Request => {
+                            
+                            console.log(Request); 
+                            console.log(Request.length)
+                            counter +=1;
+                            var temp = Object.values(Request)[1];
+                             return(
+                             <Input Key={counter} Text={"Request "+counter} placeholder={temp }  value={temp +" for "+ Object.values(Request)[0]}onChangeText={text => this.setState({ Requests: text })}></Input> );
+                         })}
+                      
                         <Input Text={" Date"} placeholder={"Date"} value={this.state.Date} onChangeText={text => this.setState({ Date: text })}></Input>
                         <Text style={{ color: 'white', marginLeft: wp('-75%') }}>Status</Text>
                         <Picker style={{ backgroundColor: 'white', width: wp('80%'), fontSize: 20, height: 40, borderRadius: 5, margin: 10, padding: 5, }} selectedValue={this.state.availability} onValueChange={(value) => this.setState({ availability: value })}>
@@ -379,8 +431,10 @@ class Orders extends Component {
                             <Picker.Item label="Completed" value="completed"></Picker.Item>
                         </Picker>
                         <Input Text={" Notes"} placeholder={"Notes"} value={this.state.Notes} onChangeText={text => this.setState({ Notes: text })}></Input>
+                        <Input Text={" Cost"} placeholder={"Cost"} value={this.state.Cost} onChangeText={text => this.setState({ Cost: text })}></Input>
                         <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
-                            <TouchableOpacity style={{ backgroundColor: '#4EEA36', height: 50, borderRadius: 5, width: wp("30%"), alignItems: 'center', justifyContent: 'center', margin: 15 }} onPress={() => this.updateOrder()}>
+                            
+                            <TouchableOpacity style={{ backgroundColor: '#4BCA36', height: 50, borderRadius: 5, width: wp("30%"), alignItems: 'center', justifyContent: 'center', margin: 15 }} onPress={() => this.updateOrder()}>
                                 <Text style={{ color: 'white', alignItems: 'center', justifyContent: 'center', fontSize: 16 }} >Update Item</Text>
                             </TouchableOpacity>
                             <TouchableOpacity style={{ backgroundColor: '#e74c3c', height: 50, borderRadius: 5, width: wp("30%"), alignItems: 'center', justifyContent: 'center', margin: 15 }} onPress={() => this.deleteOrder()}>
@@ -405,6 +459,9 @@ const styles = StyleSheet.create({
     container: {
         backgroundColor: '#404040',
         flex: 1
+    },
+    Hide: {
+        display: 'none'
     }
 },
 );
