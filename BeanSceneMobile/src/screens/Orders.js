@@ -29,7 +29,7 @@ class Orders extends Component {
             Time: '',
             Status: '',
             Notes: '',
-            Cost:'',
+            Cost: '',
             Item: [],
             Message: '',
         }
@@ -54,6 +54,7 @@ class Orders extends Component {
     }
 
     getOrders = () => {
+        counter = 0
         var url = 'http://localhost:63437/API/Orders';
         var headers = new Headers({
             Authorization: "Basic " + btoa("test:test")
@@ -106,7 +107,7 @@ class Orders extends Component {
             Authorization: "Basic " + btoa("test:test")
         }
         );
-        // headers.append('Access-Control-Allow-Origin', 'http://localhost:63437');
+        // headers.append('Access-Control-Allow-Origin', '*');
         // headers.append('Access-Control-Allow-Headers', 'Content-Type');
         // headers.append('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
         // headers.append('Access-Control-Allow-Credentials', 'false');
@@ -192,9 +193,9 @@ class Orders extends Component {
             thumbnail: this.state.thumbnail,
             availability: this.state.availability
         }
-        {<View></View>}
+        { <View></View> }
     }
-  
+
     render() {
         if (this.state.selectedTab == "get") {
             const renderData = ({ item }) => {
@@ -284,6 +285,7 @@ class Orders extends Component {
                         <View style={{ justifyContent: 'center', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
                             <Text style={{ color: 'black', fontSize: 16, fontWeight: 'bold', flex: 1 }}>Back to Orders</Text>
                             <TouchableOpacity style={{}} onPress={() => {
+
                                 this.getOrders();
 
                                 this.setState({
@@ -392,38 +394,38 @@ class Orders extends Component {
                             <Picker.Item label="O9" value="29"></Picker.Item>
                             <Picker.Item label="O10" value="30"></Picker.Item>
                         </Picker>
-                        
-                         
+
+
                         {this.state.Items.map(Item => {
-                            
-                           console.log(Item); 
-                           console.log(Item.indexOf)
-                           counter +=1;
-                           var temp = Object.values(Item)[1];
-                            return(
-                            <Input Key={counter} Text={"Item "+counter } placeholder={Object.values(Item)[1]}  value={temp}onChangeText={text => this.setState({ Item: text })}></Input> );
+
+                            console.log(Item);
+                            console.log(Item.indexOf)
+                            counter += 1;
+                            var temp = Object.values(Item)[1];
+                            return (
+                                <Input Key={counter} Text={"Item " + counter} placeholder={Object.values(Item)[1]} value={temp} onChangeText={text => this.setState({ Item: text })}></Input>);
                         })}
-                       <Text style={styles.Hide}>{counter = 0}</Text>
-                        { this.state.Dietary.map(Diet => {
-                            
-                            console.log(Diet); 
+                        <Text style={styles.Hide}>{counter = 0}</Text>
+                        {this.state.Dietary.map(Diet => {
+
+                            console.log(Diet);
                             console.log(Diet.length)
-                            counter +=1;
+                            counter += 1;
                             var temp = Object.values(Diet)[1];
-                             return(
-                             <Input Key={counter} Text={"Dietary "+counter} placeholder={temp }  value={temp +" in "+ Object.values(Diet)[0]}onChangeText={text => this.setState({ Dietary: text })}></Input> );
-                         })}
-                         <Text style={styles.Hide}>{counter = 0}</Text>
-                         { this.state.Requests.map(Request => {
-                            
-                            console.log(Request); 
+                            return (
+                                <Input Key={counter} Text={"Dietary " + counter} placeholder={temp} value={temp + " in " + Object.values(Diet)[0]} onChangeText={text => this.setState({ Dietary: text })}></Input>);
+                        })}
+                        <Text style={styles.Hide}>{counter = 0}</Text>
+                        {this.state.Requests.map(Request => {
+
+                            console.log(Request);
                             console.log(Request.length)
-                            counter +=1;
+                            counter += 1;
                             var temp = Object.values(Request)[1];
-                             return(
-                             <Input Key={counter} Text={"Request "+counter} placeholder={temp }  value={temp +" for "+ Object.values(Request)[0]}onChangeText={text => this.setState({ Requests: text })}></Input> );
-                         })}
-                      
+                            return (
+                                <Input Key={counter} Text={"Request " + counter} placeholder={temp} value={temp + " for " + Object.values(Request)[0]} onChangeText={text => this.setState({ Requests: text })}></Input>);
+                        })}
+
                         <Input Text={" Date"} placeholder={"Date"} value={this.state.Date} onChangeText={text => this.setState({ Date: text })}></Input>
                         <Text style={{ color: 'white', marginLeft: wp('-75%') }}>Status</Text>
                         <Picker style={{ backgroundColor: 'white', width: wp('80%'), fontSize: 20, height: 40, borderRadius: 5, margin: 10, padding: 5, }} selectedValue={this.state.availability} onValueChange={(value) => this.setState({ availability: value })}>
@@ -433,7 +435,7 @@ class Orders extends Component {
                         <Input Text={" Notes"} placeholder={"Notes"} value={this.state.Notes} onChangeText={text => this.setState({ Notes: text })}></Input>
                         <Input Text={" Cost"} placeholder={"Cost"} value={this.state.Cost} onChangeText={text => this.setState({ Cost: text })}></Input>
                         <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
-                            
+
                             <TouchableOpacity style={{ backgroundColor: '#4BCA36', height: 50, borderRadius: 5, width: wp("30%"), alignItems: 'center', justifyContent: 'center', margin: 15 }} onPress={() => this.updateOrder()}>
                                 <Text style={{ color: 'white', alignItems: 'center', justifyContent: 'center', fontSize: 16 }} >Update Item</Text>
                             </TouchableOpacity>

@@ -24,7 +24,8 @@ class StaffDashboard extends Component {
             username: '',
             password: '',
             email: '',
-            role: ''
+            role: '',
+            message:''
         }
     }
 
@@ -57,7 +58,7 @@ class StaffDashboard extends Component {
         );
 
 
-        var options={headers:headers};
+        var options = { headers: headers };
 
         fetch(url, options)
             .then(response => response.json())
@@ -126,6 +127,15 @@ class StaffDashboard extends Component {
     updateStaff = () => {
         console.log("update")
 
+        var staff = {
+            id: this.state.id,
+            firstname: this.state.firstname,
+            lastname: this.state.lastname,
+            username: this.state.username,
+            password: this.state.password,
+            email: this.state.email,
+            role: this.state.role
+        }
         var url = "http://localhost:63437/API/Staff/" + this.state.id + "/" + this.state.firstname + "/" + this.state.lastname + "/" + this.state.username + "/" + this.state.password + "/" + this.state.email + "/" + this.state.role;
 
         var headers = new Headers({
@@ -137,9 +147,11 @@ class StaffDashboard extends Component {
         // headers.append('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
         // headers.append('Access-Control-Allow-Credentials', 'false');
 
-        var options = { method: "PUT", headers: headers };
+        //var options = { method: "PUT", headers: headers };
 
-
+        var options = {
+            method: "PUT", headers: headers, body: JSON.stringify(staff)
+        };
 
         fetch(url, options)
             .then(response => response.json())
@@ -204,7 +216,7 @@ class StaffDashboard extends Component {
                     </ScrollView>
                 </View>
             )
-        }      
+        }
         //Details
         else if (this.state.selectedTab == "detail") {
             return (
@@ -229,15 +241,15 @@ class StaffDashboard extends Component {
 
                     </View>
                     <ScrollView contentContainerStyle={{ alignItems: 'center' }} style={{ flex: 15 }}>
-                       
-                       
+
+
                         <Input Text={" FirstName"} placeholder={" FirstName"} value={this.state.firstname} editable={false}></Input>
-                        <Input Text={" LastName"} placeholder={" LastName"} value={this.state.lastname}editable={false}></Input>
+                        <Input Text={" LastName"} placeholder={" LastName"} value={this.state.lastname} editable={false}></Input>
                         <Input Text={" Email"} placeholder={" Email"} value={this.state.
                             email} onChangeText={text => this.setState({ email: text })} editable={false}></Input>
                         <Input Text={" Role"} placeholder={" Role"} value={this.state.
                             role} onChangeText={text => this.setState({ role: text })} editable={false}></Input>
-                       
+
 
                         {/* <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
                             <TouchableOpacity style={{ backgroundColor: '#4BCA36', height: 50, borderRadius: 5, width: wp("30%"), alignItems: 'center', justifyContent: 'center', margin: 15 }} onPress={() => this.updateStaff()}>
@@ -262,9 +274,9 @@ class StaffDashboard extends Component {
 export default StaffDashboard;
 
 const styles = StyleSheet.create({
-    container:{
+    container: {
         backgroundColor: '#404040',
-        flex:1
+        flex: 1
     }
 },
 );

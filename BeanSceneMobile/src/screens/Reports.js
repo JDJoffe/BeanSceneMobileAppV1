@@ -1,18 +1,293 @@
 import React, { Component } from "react";
-import {View,Text, StyleSheet} from "react-native";
+import { StyleSheet, View, Text, Dimensions, TouchableOpacity, ScrollView, FlatList } from "react-native";
 
-import Header from '../layout/Header'
+import Ionicons from 'react-native-vector-icons/Ionicons';
+import { widthPercentageToDP as wp, heightPercentageToDP as hp, widthPercentageToDP } from 'react-native-responsive-screen';
 
+import Header from '../layout/Header';
+import Input from '../layout/Input';
+import { render } from "react-dom";
+import { TextInput } from "react-native-gesture-handler";
+import { ceil } from "react-native-reanimated";
+
+const { width, height } = Dimensions.get('window');
 class Reports extends Component{
-    render(){
-        return(
-            <View>
-                 <Header navigation ={navigation}></Header>
-                <Text>Reports Screen</Text>
-                
-            </View>
-        )
+    constructor() {
+        super();
+        this.state = {
+            data: [],
+            selectedTab: 'get',
+            id: '',
+            date: '',
+            orders: '',
+            revenue: '',
+            message:''
+        }
     }
+
+    componentDidMount() {
+        var url = 'http://localhost:63437/API/Reports';
+        var headers = new Headers({
+            Authorization: "Basic " + btoa("test:test")
+        }
+        );
+        var options = { headers: headers };
+        fetch(url, options)
+            .then(response => response.json())
+            .then((json) => {
+                console.log(json);
+
+                this.setState({
+                    data: json
+                })
+            })
+    }
+
+    getReports = () => {
+        var url = 'http://localhost:63437/API/Reports';
+        var headers = new Headers({
+            Authorization: "Basic " + btoa("test:test")
+        }
+        );
+        var options={headers:headers};
+
+        fetch(url, options)
+            .then(response => response.json())
+            .then((json) => {
+                console.log(json);
+                this.setState({
+                    data: json,
+                    messgae: ''
+                })
+            })
+    }
+
+    deleteReports = () => {
+        console.log("delete")
+        //description causes errors for some reason
+        var url = "http://localhost:63437/API/Reports/" + this.state.id;
+
+        var headers = new Headers({
+            Authorization: "Basic " + btoa("test:test")
+        }
+        );
+        var options = { method: 'DELETE', headers: headers };
+        fetch(url, options)
+            .then(response => response.json())
+            .then((json) => {
+                console.log(json);
+
+                this.setState({
+                    data: json,
+                    message: "Deleted Successfully"
+                })
+            })
+    }
+
+    addReports = () => {
+        console.log("add")
+        //description causes errors for some reason
+        var url = "http://localhost:63437/API/Reports/" + this.state.date + "/" + this.state.order + "/" + this.state.revenue;
+
+        var headers = new Headers({
+            Authorization: "Basic " + btoa("test:test")
+        }
+        );
+        // headers.append('Access-Control-Allow-Origin', 'http://localhost:63437');
+        // headers.append('Access-Control-Allow-Headers', 'Content-Type');
+        // headers.append('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
+        // headers.append('Access-Control-Allow-Credentials', 'false');
+        var options = { method: "POST", headers: headers };
+
+        fetch(url, options)
+            .then(response => response.json())
+            .then((json) => {
+                console.log(json);
+
+                this.setState({
+                    data: json,
+                    message: "Added Successfully"
+                })
+            })
+    }
+
+    updateReports = () => {
+        console.log("update")
+
+        var report = {
+            id: this.state.id,
+            date: this.state.date,
+            orders: this.state.orders,
+            revenue: this.state.revenue          
+        }
+
+        var url = "http://localhost:63437/API/Reports/" + this.state.id + "/" + this.state.date + "/" + this.state.orders + "/" + this.state.revenue;
+
+        var headers = new Headers({
+            Authorization: "Basic " + btoa("test:test")
+            
+        }
+        );
+        // headers.append('Access-Control-Allow-Origin', '*');
+        // headers.append('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+        // headers.append('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
+        // headers.append('Access-Control-Allow-Credentials', 'false');
+        var options = {
+            method: "PUT", headers: headers,body:JSON.stringify(report)};
+          
+            fetch(url, options)
+            .then(response => response.json())
+            .then((json) => {
+                console.log(json);
+
+                this.setState({
+                    data: json,
+                    message: "Updated Successfully"
+                })
+            })
+    }
+
+    render(){
+        if (this.state.selectedTab == 'get') {
+            const renderData = ({ item }) => {
+                return (
+
+                    <TouchableOpacity onPress={() => this.setState({
+                        selectedTab: 'detail',
+                        id: item.id,
+                        date: item.date,
+                        orders: item.orders,
+                        revenue: item.revenue,                    
+                        message: ''
+                    })}>
+                        <View style={{ margin: 5, flexDirection: "row", justifyContent: 'space-between', padding: 5, borderBottomWidth: 1, borderBottomColor: 'white', alignItems: 'center' }}>
+                            <Text style={{ color: 'white' }}>{item.id}</Text>
+
+                            <Text style={{ color: 'white' }}>date: {item.date}</Text>
+
+                            <Text style={{ color: 'white' }}>${item.revenue}</Text>                         
+                        </View>
+                    </TouchableOpacity>
+                )
+            };
+        return(
+            <View style={styles.container}>
+            <Header navigation={navigation}></Header>
+            <View style={{
+                flex: 1, backgroundColor: 'white', justifyContent: 'center', flexDirection: 'row', justifyContent: 'space-between', padding: 7, alignItems: 'center'
+            }}>
+               <Text style={{ color: 'black', fontSize: 20, fontWeight: 'bold', flex: 1 }}>Reports List</Text>
+                        <TouchableOpacity style={{}} onPress={() => {                          
+                            this.getReports();
+                            this.setState({
+                                selectedTab: 'add',
+                            })
+                        }}>
+                            <Ionicons style={{ color: '#FF7F50', fontSize: 50 }} name="add-circle-outline"></Ionicons>
+                        </TouchableOpacity>
+                    </View>
+
+                    <ScrollView style={{ flex: 15 }}>
+                        <FlatList data={this.state.data} renderItem={renderData} keyExtractor={(item) => item.id}>
+
+                        </FlatList>
+                    </ScrollView>
+                </View>
+    )
+}      
+ //ADD 
+ else if (this.state.selectedTab == "add") {
+    return (
+        <View style={styles.container}>
+            <Header navigation={navigation}></Header>
+            <View style={{
+                flex: 1, backgroundColor: 'white', justifyContent: 'center', flexDirection: 'row', justifyContent: 'space-between', padding: 7, alignItems: 'center', marginBottom: 10
+            }}>
+                <Text style={{ color: 'black', fontSize: 20, fontWeight: 'bold', flex: 1 }}>Add Item</Text>
+                <View style={{ justifyContent: 'center', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
+                    <Text style={{ color: 'black', fontSize: 16, fontWeight: 'bold', flex: 1 }}>Back to Items</Text>
+                    <TouchableOpacity style={{}} onPress={() => {
+                        this.getReports();
+                        this.setState({
+                            selectedTab: 'get'
+
+                        })
+                    }}>
+
+                        <Ionicons style={{ color: '#FF7F50', fontSize: 50 }} name="arrow-back-outline"></Ionicons>
+                    </TouchableOpacity>
+                </View>
+            </View>
+            <ScrollView contentContainerStyle={{ alignItems: 'center' }} style={{ flex: 15 }}>
+                <Input Text={" Date"} placeholder={"Date"} value={this.state.date} onChangeText={text => this.setState({ date: text })} ></Input>
+                <Input Text={" Orders"} placeholder={"Orders"} value={this.state.orders} onChangeText={text => this.setState({ orders: text })} ></Input>
+                <Input Text={" Revenue"} placeholder={"Revenue"} value={$+this.state.revenue} onChangeText={text => this.setState({ revenue: text })}></Input>
+                <Text style={{ color: 'white', marginLeft: wp('-75%') }}>Category</Text>
+               
+                <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
+                    <TouchableOpacity style={{ backgroundColor: '#FF7F50', height: 50, borderRadius: 5, width: wp("30%"), alignItems: 'center', justifyContent: 'center', margin: 15 }} onPress={() => this.addReports()}>
+                        <Text style={{ color: 'white', alignItems: 'center', justifyContent: 'center', fontSize: 16 }} >Add Report</Text>
+                    </TouchableOpacity>
+                </View>
+            </ScrollView>
+            <View style={{ alignItems: 'center', justifyContent: 'center' }}>
+                <Text style={{ fontSize: 20, fontWeight: 'bold', color: 'white', marginTop: 15 }}>{this.state.message}</Text>
+            </View>
+        </View>
+    )
+}
+//Details
+else if (this.state.selectedTab == "detail") {
+    return (
+        <View style={styles.container}>
+            <Header navigation={navigation}></Header>
+            <View style={{
+                flex: 1, backgroundColor: 'white', justifyContent: 'center', flexDirection: 'row', justifyContent: 'space-between', padding: 7, alignItems: 'center', marginBottom: 10
+            }}>
+                <Text style={{ color: 'black', fontSize: 20, fontWeight: 'bold', flex: 1 }}>Report Detail</Text>
+                <View style={{ justifyContent: 'center', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
+                    <Text style={{ color: 'black', fontSize: 16, fontWeight: 'bold', flex: 1 }}>Back to Reports</Text>
+                    <TouchableOpacity style={{}} onPress={() => {
+                        this.getReports();
+                        this.setState({
+                            selectedTab: 'get'
+                        })
+                    }}>
+
+                        <Ionicons style={{ color: '#FF7F50', fontSize: 50 }} name="arrow-back-outline"></Ionicons>
+                    </TouchableOpacity>
+                </View>
+
+            </View>
+            <ScrollView contentContainerStyle={{ alignItems: 'center' }} style={{ flex: 15 }}>
+               
+            <Input Text={" Id"} placeholder={" Id"} value={this.state.
+                    Id} editable={false}></Input>
+            <Input Text={" Date"} placeholder={" Date"} value={this.state.
+                    date} onChangeText={text => this.setState({ date: text })} editable={true}></Input>
+                <Input Text={" Orders"} placeholder={" Orders"} value={this.state.
+                    orders} onChangeText={text => this.setState({ orders: text })} editable={true}></Input>
+                <Input Text={" Revenue"} placeholder={" Revenue"} value={this.state.
+                    revenue} onChangeText={text => this.setState({ revenue: text })} editable={true}></Input>
+                                 
+            </ScrollView>
+            <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
+                            <TouchableOpacity style={{ backgroundColor: '#4BCA36', height: 50, borderRadius: 5, width: wp("30%"), alignItems: 'center', justifyContent: 'center', margin: 15 }} onPress={() => this.updateReports()}>
+                                <Text style={{ color: 'white', alignItems: 'center', justifyContent: 'center', fontSize: 16 }} >Update Report</Text>
+                            </TouchableOpacity>
+                            <TouchableOpacity style={{ backgroundColor: '#e74c3c', height: 50, borderRadius: 5, width: wp("30%"), alignItems: 'center', justifyContent: 'center', margin: 15 }} onPress={() => this.deleteReports()}>
+                                <Text style={{ color: 'white', alignItems: 'center', justifyContent: 'center', fontSize: 16 }} >Delete Report</Text>
+                            </TouchableOpacity>
+            </View>
+            <View style={{ alignItems: 'center', justifyContent: 'center' }}>
+                <Text style={{ fontSize: 20, fontWeight: 'bold', color: 'white', marginTop: 15 }}>{this.state.message}</Text>
+            </View>
+
+        </View>
+
+    )
+}
+}
 }
 
 export default Reports;

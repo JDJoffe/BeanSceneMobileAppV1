@@ -1,6 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
 import { Text, View } from 'react-native';
-
+import {useEffect} from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
@@ -20,7 +20,22 @@ const HomeStack = createStackNavigator();
 
 const BottomTabStack = createBottomTabNavigator();
 
+
+
 export default function App() {
+  // const makeAPICall = async () => {
+  //   try {
+  //     const response = await fetch('http://localhost:19006/', {mode:'cors'});
+  //     const data = await response.json();
+  //     console.log({ data })
+  //   }
+  //   catch (e) {
+  //     console.log(e)
+  //   }
+  // }
+  // useEffect(() => {
+  //   makeAPICall();
+  // }, [])
   return (
     <NavigationContainer>
       <HomeStack.Navigator>
