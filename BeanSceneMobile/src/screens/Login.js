@@ -52,15 +52,14 @@ class Login extends Component {
                 error: ''
             })
             console.log("login")
-            //description causes errors for some reason
-            //var url = "http://localhost:63437/API/Staff/" + this.state.username + '/' + this.state.password;
+           /* #region */ //description causes errors for some reason
+            //var url = "http://localhost:63437/API/Staff/" + this.state.username + '/' + this.state.password; /* #endregion */
             var url = "http://localhost:63437/API/Staff/" + this.state.username + '/' + this.state.password;
             var headers = new Headers({
                 Authorization: "Basic " + btoa("test:test")
             }
             );
             var options = { headers: headers };
-
 
             console.log("fetching");
             fetch(url, options)
@@ -88,12 +87,8 @@ class Login extends Component {
                             this.props.navigation.navigate("StaffDashboard")
                         }
                     }
-
                 })
-            //
         }
-
-
     }
 
     render() {

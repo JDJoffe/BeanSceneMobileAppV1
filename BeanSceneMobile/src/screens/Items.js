@@ -79,8 +79,6 @@ class Items extends Component {
         );
         var options = { method: 'DELETE', headers: headers };
 
-
-
         fetch(url, options)
             .then(response => response.json())
             .then((json) => {
@@ -95,8 +93,8 @@ class Items extends Component {
 
     addItem = () => {
         console.log("add")
-       // description causes errors for some reason
-
+        // description causes errors for some reason
+        /* #region */
         // var item = {
         //     id: this.state.id,
         //     name: this.state.name,
@@ -107,25 +105,26 @@ class Items extends Component {
         //     thumbnail: this.state.thumbnail,
         //     availability: this.state.availability
         // }
+        /* #endregion */
         //63437
-        var url = "http://localhost:63437/API/Items/" + this.state.name + "/" + this.state.description + "/" + this.state.dietary +"/" + this.state.price  + "/" + this.state.category + "/" + encodeURIComponent(this.state.thumbnail) + "/" + this.state.availability;
+        var url = "http://localhost:63437/API/Items/" + this.state.name + "/" + this.state.description + "/" + this.state.dietary + "/" + this.state.price + "/" + this.state.category + "/" + encodeURIComponent(this.state.thumbnail) + "/" + this.state.availability;
 
 
         var headers = new Headers({
             Authorization: "Basic " + btoa("test:test")
         }
         );
+        /* #region */
         // headers.append('Access-Control-Allow-Origin', 'http://localhost:63437');
         // headers.append('Access-Control-Allow-Headers', 'Content-Type');
         // headers.append('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
         // headers.append('Access-Control-Allow-Credentials', 'false');
+        /* #endregion */
 
-        var options = { method: "POST", headers: headers
-        //, body:JSON.stringify(item) 
-    };
-
-
-
+        var options = {
+            method: "POST", headers: headers
+            //, body:JSON.stringify(item) 
+        };
         fetch(url, options)
             .then(response => response.json())
             .then((json) => {
@@ -165,7 +164,9 @@ class Items extends Component {
 
         // all other stuff in body
         var options = {
-            method: "PUT", headers: headers,body:JSON.stringify(item)//, body: {
+            method: "PUT", headers: headers,body:JSON.stringify(item)
+            /* #region */
+            //, body: {
             //     name: this.state.name,
             //     price: this.state.price,
             //     stock: this.state.stock,
@@ -173,13 +174,9 @@ class Items extends Component {
             //     brand: this.state.brand,
             //     category: this.state.category,
             //     thumbnail: this.state.thumbnail
-
-
             // }
+            /* #endregion */
         };
-
-
-
         fetch(url, options)
             .then(response => response.json())
             .then((json) => {
@@ -240,7 +237,11 @@ class Items extends Component {
                             <Ionicons style={{ color: '#FF7F50', fontSize: 50 }} name="add-circle-outline"></Ionicons>
                         </TouchableOpacity>
                     </View>
-
+                    <View style={{ flexDirection: "row", margin: 2.5, justifyContent: 'space-between', borderBottomWidth: 1, borderBottomColor: 'white', paddingHorizontal: 2.5 }}>
+                        <Text style={{ color: 'white' }}>Id</Text>
+                        <Text style={{ color: 'white' }}>Name</Text>
+                        <Text style={{ color: 'white' }}>Price</Text>                     
+                    </View>    
                     <ScrollView style={{ flex: 15 }}>
                         <FlatList data={this.state.data} renderItem={renderData} keyExtractor={(item) => item.id}>
 
