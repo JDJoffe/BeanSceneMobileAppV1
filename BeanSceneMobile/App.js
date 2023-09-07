@@ -23,6 +23,7 @@ const BottomTabStack = createBottomTabNavigator();
 
 
 export default function App() {
+  /* #region */
   // const makeAPICall = async () => {
   //   try {
   //     const response = await fetch('http://localhost:19006/', {mode:'cors'});
@@ -36,6 +37,7 @@ export default function App() {
   // useEffect(() => {
   //   makeAPICall();
   // }, [])
+  /* #endregion */
   return (
     <NavigationContainer>
       <HomeStack.Navigator>
